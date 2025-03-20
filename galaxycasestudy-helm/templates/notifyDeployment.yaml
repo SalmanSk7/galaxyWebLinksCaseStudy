@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.notify.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.notify.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.notify.name }}
+  template:
+    metadata:
+      # app: {{ .Values.notify.name }}
+      labels:
+        app: {{ .Values.notify.name }}        
+    spec:
+      containers:
+        - name: {{ .Values.notify.name }}
+          image: "{{ .Values.notify.image.repository }}:{{ .Values.notify.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.notify.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.notify.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.notify.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.notify.readinessProbe | nindent 12 }}

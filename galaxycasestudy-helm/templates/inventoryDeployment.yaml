@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.inventory.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.inventory.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.inventory.name }}
+  template:
+    metadata:
+      # app: {{ .Values.inventory.name }}
+      labels:
+        app: {{ .Values.inventory.name }}        
+    spec:
+      containers:
+        - name: {{ .Values.inventory.name }}
+          image: "{{ .Values.inventory.image.repository }}:{{ .Values.inventory.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.inventory.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.inventory.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.inventory.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.inventory.readinessProbe | nindent 12 }}

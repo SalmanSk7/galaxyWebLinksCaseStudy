@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.support.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.support.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.support.name }}
+  template:
+    metadata:
+      # app: {{ .Values.support.name }}
+      labels:
+        app: {{ .Values.support.name }}        
+    spec:
+      containers:
+        - name: {{ .Values.support.name }}
+          image: "{{ .Values.support.image.repository }}:{{ .Values.support.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.support.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.support.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.support.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.support.readinessProbe | nindent 12 }}

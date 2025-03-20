@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.integration.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.integration.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.integration.name }}
+  template:
+    metadata:
+      # app: {{ .Values.integration.name }}
+      labels:
+        app: {{ .Values.integration.name }}        
+    spec:
+      containers:
+        - name: {{ .Values.integration.name }}
+          image: "{{ .Values.integration.image.repository }}:{{ .Values.integration.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.integration.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.integration.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.integration.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.integration.readinessProbe | nindent 12 }}

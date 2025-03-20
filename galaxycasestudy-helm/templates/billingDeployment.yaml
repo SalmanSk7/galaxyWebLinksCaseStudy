@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.billing.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.billing.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.billing.name }}
+  template:
+    metadata:
+      # app: {{ .Values.billing.name }}
+      labels:
+        app: {{ .Values.billing.name }}        
+    spec:
+      containers:
+        - name: {{ .Values.billing.name }}
+          image: "{{ .Values.billing.image.repository }}:{{ .Values.billing.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.billing.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.billing.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.billing.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.billing.readinessProbe | nindent 12 }}

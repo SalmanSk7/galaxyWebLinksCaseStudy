@@ -1,0 +1,328 @@
+# Default values for galaxycasestudy-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+namespace: galaxy-web-links
+
+replicaCount: 2
+
+analytics:
+  name: analytics
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "analyticsservice"
+  
+  
+  service:
+    name: analytics-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: analytics-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+auth:
+  name: auth
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "authservice"
+  
+  
+  service:
+    name: auth-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: auth-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+billing:
+  name: billing
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "billingservice"
+  
+  
+  service:
+    name: billing-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: billing-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+integration:
+  name: integration
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "integrationservice"
+  
+  
+  service:
+    name: integration-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: integration-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+  
+inventory:
+  name: inventory
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "inventoryservice"
+  
+  
+  service:
+    name: inventory-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: inventory-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+notify:
+  name: notify
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "notifyservice"
+  
+  
+  service:
+    name: notify-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: notify-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+payment:
+  name: payment
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "paymentservice"
+  
+  
+  service:
+    name: payment-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: payment-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+reporting:
+  name: reporting
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "reportingservice"
+  
+  
+  service:
+    name: reporting-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: reporting-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+support:
+  name: support
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "supportservice"
+  
+  
+  service:
+    name: support-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: support-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+user:
+  name: user
+  image:
+    repository: salmansk15/galaxycasestudy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "userservice"
+  
+  
+  service:
+    name: user-svc
+    type: ClusterIP
+    port: 5001
+  
+  
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+  
+  autoscaling:
+    name: user-hpa
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80

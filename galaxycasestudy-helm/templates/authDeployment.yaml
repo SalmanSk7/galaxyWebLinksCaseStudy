@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.auth.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.auth.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.auth.name }}
+  template:
+    metadata:
+      # app: {{ .Values.auth.name }}
+      labels:
+        app: {{ .Values.auth.name }}        
+    spec:
+      containers:
+        - name: {{ .Values.auth.name }}
+          image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.auth.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.auth.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.auth.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.auth.readinessProbe | nindent 12 }}
