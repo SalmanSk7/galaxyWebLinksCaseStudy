@@ -120,13 +120,5 @@ pipeline {
             }
         }
 
-        stage('helmPackage and upload to docker') {
-            steps {
-               sh "helm package galaxycasestudy-helm/"
-               sh "helm push galaxycasestudy-helm-0.1.0.tgz oci://registry-1.docker.io/salmansk15"
-            }
-        }
-
-
     }
 }
